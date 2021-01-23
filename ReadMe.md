@@ -1,5 +1,5 @@
 # meta-tag-parser-qml
-Meta-tag html parser built on qml
+Parser meta-tags html built on qml
 
 It is an example, how to make a preview from an url, grabbing the information such as title and image
 
