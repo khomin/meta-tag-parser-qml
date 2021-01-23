@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file>qml/InputPanel.qml</file>
+        <file>qml/MetaDataPanel.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>images/stop_gray.svg</file>
+    </qresource>
+</RCC>
