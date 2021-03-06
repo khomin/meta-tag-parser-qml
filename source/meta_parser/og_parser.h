@@ -3,8 +3,7 @@
 
 #include <QObject>
 #include <QFile>
-#include <QXmlStreamReader>
-#include <QTextDocument>
+#include <QUrl>
 #include <QRegExp>
 #include <QRegularExpression>
 #include "../const_values.h"
@@ -36,12 +35,12 @@ public:
     constexpr static const char* og_image= "<meta [^>]*property=[\"']og:image[\"'] [^>]*content=[\"']([^'^\"]+?)[\"'][^>]*>";
 
     //
-    // second variants
+    // second
     //
     constexpr static const char* og_description_simple = "<meta [^>]*name=[\"']description[\"'] [^>]*content=[\"']([^'^\"]+?)[\"'][^>]*>";
     constexpr static const char* og_title_simple = "<title>([\\w]{1,65})<\\/title>";
     constexpr static const char* og_title_alternative = "<meta [^>]*name=\"title\"([^'^\"]+?)[\"']([^>]*)>";
-    constexpr static const char* og_first_png = "href=\"([^\"]*.png)\">";
+    constexpr static const char* og_first_png = "href=\"([^\"]*.png)\"";
 
     ParseResult parseHtml(QString html, QUrl originalUrl) {
         ParseResult res;
@@ -53,53 +52,68 @@ public:
         QRegularExpressionMatch match;
 
         //
-        // first attempts
-        // find otg tags
+        // first triels
         //
         match = site_name_regex.match(html);
         if (match.hasMatch()) {
-            res.og_site_name = match.captured(1);
+            res.og_site_name = match.captured(1)
+                    .remove("\r")
+                    .remove("\n");
         }
         match = title_regex.match(html);
         if (match.hasMatch()) {
-            res.og_title = match.captured(1);
+            res.og_title = match.captured(1)
+                    .remove("\r")
+                    .remove("\n");
         }
         match = description_regex.match(html);
         if (match.hasMatch()) {
-            res.og_description = match.captured(1);
+            res.og_description = match.captured(1)
+                    .remove("\r")
+                    .remove("\n");
         }
         match = url_regex.match(html);
         if (match.hasMatch()) {
-            res.og_url = match.captured(1);
+            res.og_url = match.captured(1)
+                    .remove("\r")
+                    .remove("\n");
         }
         match = image_regex.match(html);
         if (match.hasMatch()) {
-            res.og_image = match.captured(1);
+            res.og_image = match.captured(1)
+                    .remove("\r")
+                    .remove("\n");
         }
 
         //
-        // second attempts
+        // second
         //
         QRegularExpression regex_second;
         if(res.og_title.isEmpty()) {
             regex_second.setPattern(og_description_simple);
             match = regex_second.match(html);
             if (match.hasMatch()) {
-                res.og_title = match.captured(1);
+                res.og_title = match.captured(1)
+                        .remove("\r")
+                        .remove("\n");
             }
         }
         if(res.og_image.isEmpty()) {
             regex_second.setPattern(og_first_png);
             match = regex_second.match(html);
             if (match.hasMatch()) {
-                res.og_image = originalUrl.toString() + match.captured(1);
+                res.og_image = originalUrl.toString() + match.captured(1)
+                        .remove("\r")
+                        .remove("\n");
             }
         }
         if(res.og_site_name.isEmpty()) {
             regex_second.setPattern(og_title_simple);
             match = regex_second.match(html);
             if (match.hasMatch()) {
-                res.og_site_name = match.captured(1);
+                res.og_site_name = match.captured(1)
+                        .remove("\r")
+                        .remove("\n");
             } else {
                 if(!res.og_title.isEmpty()) {
                     res.og_site_name = res.og_title;

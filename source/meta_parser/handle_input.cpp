@@ -62,6 +62,7 @@ void HandleInput::downloadHtml(QUrl url) {
             downloadImage();
         } else {
             qDebug() << "downloadHtml start but reply nothing: "<< m_result.og_image;
+            clearAllFields();
             emit signalParserDone(m_result);
         }
     });

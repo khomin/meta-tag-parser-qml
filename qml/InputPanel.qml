@@ -19,6 +19,15 @@ ColumnLayout {
         }
     }
 
+    Label {
+        Layout.fillHeight: true
+        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+        horizontalAlignment: Qt.AlignHCenter
+        verticalAlignment: Qt.AlignVCenter
+        text: model_input_line.inputText.length == 0 ? qsTr("Search field is empty") : (model_input_line.metaUrlName != "" ? "" : "loading...")
+        visible: model_input_line.metaUrlName == ""
+    }
+
     RowLayout {
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignBottom
