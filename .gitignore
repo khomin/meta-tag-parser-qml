@@ -1,3 +1,5 @@
+build/**
+libs/
 *.pro.user
 build/**
 *.DS_Store
