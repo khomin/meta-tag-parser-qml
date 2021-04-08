@@ -4,6 +4,7 @@
 #include <QObject>
 #include "./file_download.h"
 #include "og_parser.h"
+#include "og_parser_result.h"
 
 class HandleInput : public QObject
 {
@@ -25,12 +26,12 @@ public:
     void parseInput(QString input);
 
     // get the final result
-    OgParser::ParseResult getResult() {
+    OgParserRes::ParseResult getResult() {
         return m_result;
     }
 
 signals:
-    void signalParserDone(OgParser::ParseResult data);
+    void signalParserDone(OgParserRes::ParseResult data);
 
 private:
 
@@ -55,7 +56,7 @@ private:
     // which may contains any old data
     void clearAllFields();
 
-    OgParser::ParseResult m_result;
+    OgParserRes::ParseResult m_result;
     OgParser m_og_parser;
     FileDownloader* m_downloader;
     FileDownloader* m_downloader_image;

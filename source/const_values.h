@@ -8,7 +8,7 @@ class ConstValues : public QObject
 {
     Q_OBJECT
 public:
-    explicit ConstValues(QObject *parent = nullptr);
+    explicit ConstValues(QObject *parent = nullptr) {}
 
     static QString getFolderMeta() {
         return (QDir::homePath() + "/meta/");

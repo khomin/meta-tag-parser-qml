@@ -1,2 +1,4 @@
 *.pro.user
+build/**
 *.DS_Store
+*.txt.user
