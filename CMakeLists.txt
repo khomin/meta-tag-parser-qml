@@ -42,5 +42,4 @@ target_link_libraries(${PROJECT_NAME}
     Qt5::Gui
     Qt5::Qml
     Qt5::Quick
-    /usr/local/lib/libgumbo.a
 )
